@@ -30,6 +30,7 @@ public class RainerController {
         List<Rainer> list = rs.getAllRainer(); // Get all Rainers
         model.addAttribute("rainerList", list); // Set list to model attribute
         model.addAttribute("rainerForm", new RainerForm()); // Set empty form
+        model.addAttribute("searchForm", new SearchForm());  // Add a new search form
         return "rainer_list"; // Return list screen
     }
 
@@ -44,4 +45,14 @@ public class RainerController {
         rs.postRainer(r);
         return "redirect:/read"; // Transfer to main screen
     }
+
+    @PostMapping("/search")
+    String searchRainer(@ModelAttribute("searchForm") SearchForm form, Model model) { 
+        System.out.println("Searching for keyword: " + form.getKeyword());
+        List<Rainer> results = rs.searchRainer(form.getKeyword());
+        System.out.println("Search results: " + results);
+        model.addAttribute("rainerList", results);
+        return "search_results";
+    }
+    
 }

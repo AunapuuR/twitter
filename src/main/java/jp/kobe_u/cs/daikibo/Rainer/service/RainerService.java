@@ -31,5 +31,10 @@ public class RainerService {
         ArrayList<Rainer> list = new ArrayList<>();
         found.forEach(list::add);
         return list;
-    }}
+    }
+
+    public List<Rainer> searchRainer(String keyword) {
+        return repo.findByCommentContaining(keyword);
+    }
+}
 
